@@ -56,6 +56,9 @@
                     </p>
                 </div>
             </div>
+            <div id="flagFoundMessage" style="display: none; background-color: #4CAF50; color: white; padding: 10px;">Flag Found! <span id="flagNumber"></span></div>
+            <div id="flagNotFoundMessage" style="display: none; background-color: #4CAF50; color: white; padding: 10px;">Flag Invalid! <span id="flagNumber"></span></div>
+
             <div class="row hackerFont">
                 <div class="col-md-12">
                     <h4>Challenges</h4>
@@ -63,7 +66,7 @@
                 <div class="col-md-4 mb-3">
                     <div class="card category_web">
                         <div class="card-header solved" data-target="#problem_id_1" data-toggle="collapse" aria-expanded="false" aria-controls="problem_id_1">
-                            Sherlock Holmes <span class="badge">solved</span> <span class="badge">80 points</span>
+                            Sherlock Holmes  <span class="badge">100 points</span>
                         </div>
                         <div id="problem_id_1" class="collapse card-body">
                             <blockquote class="card-blockquote">
@@ -71,7 +74,7 @@
                                 <p> my friend created a login page web application, and he hid the flag somewhere in the code. Do you have what it takes?
                                 </p>
                                 <a  href="questions/sherlock_holmes/index.html" class="btn btn-outline-secondary btn-shadow"><span class="fa fa-download mr-2"></span>Download</a>
-                               <button class="btn btn-outline-secondary btn-shadow" onclick="showhint()">hint</button>
+                               <button class="btn btn-outline-secondary btn-shadow" onclick="showhint1()">hint</button>
                                 <div class="input-group mt-3">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio1_p1" name="customRadio_p1" class="custom-control-input">
@@ -97,8 +100,11 @@
                                 <div class="input-group mt-3">
                                     <input type="text" class="form-control" id="question1" placeholder="Enter Flag" aria-label="Enter Flag" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <button id="submit_p11" onclick="submit_p1()" class="btn btn-outline-secondary" type="button">Go!</button>
+                                        <button id="submit_p11" onclick="submit_p(1)" class="btn btn-outline-secondary" type="button">Go!</button>
                                     </div>
+                                </div>
+                                <div id="flagFoundMessage" style="display: none; background-color: #4CAF50; color: white; padding: 10px;">
+                                    Flag Found! <span id="flagNumber"></span>
                                 </div>
                             </blockquote>
                         </div>
@@ -107,18 +113,18 @@
                 <div class="col-md-4 mb-3">
                     <div class="card category_reversing">
                         <div class="card-header" data-target="#problem_id_2" data-toggle="collapse" aria-expanded="false" aria-controls="problem_id_2">
-                            Find The Easy Pass <span class="badge align-self-end">80 points</span>
+                            The Hidden Glyph<span class="badge align-self-end">100 points</span>
                         </div>
                         <div id="problem_id_2" class="collapse card-body">
                             <blockquote class="card-blockquote">
                                 <div style="display: flex;">
-                                    <h6 class="solvers">Solvers: <span class="solver_num">76</span> &nbsp;<span class="color_danger">Difficulty:</span></h6>
                                     <div class="pl-2"><canvas style="width:80px;height:20px" id="problem_id_2_chart"></canvas></div>
                                 </div>
-                                <p> Can you find the password? Enter the password as flag in the following form: Amrita_CTF{passwordhere}
-                                </p>
-                                <a target="_blank" href="#!" class="btn btn-outline-secondary btn-shadow"><span class="fa fa-download mr-2"></span>Download</a>
-                                <a href="#hint" data-toggle="modal" data-target="#hint" class="btn btn-outline-secondary btn-shadow"><span class="far fa-lightbulb mr-2"></span>Hint</a>
+                                <p> Within the pixels of an innocuous image lies a secret. Decode the numeric sequence to reveal the name of the
+                                     one who wields the forbidden power—the Death Note. Download the image here</p>
+                                <a target="_blank" href="questions/deathnote/deathnote.jpg" class="btn btn-outline-secondary btn-shadow"><span class="fa fa-download mr-2"></span>Download</a>
+                                <button class="btn btn-outline-secondary btn-shadow" onclick="showhint2()">hint</button>
+
                                 <div class="input-group mt-3">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio1_p2" name="customRadio_p2" class="custom-control-input">
@@ -142,11 +148,12 @@
                                     </div>
                                 </div>
                                 <div class="input-group mt-3">
-                                    <input type="text" class="form-control" placeholder="Enter Flag" aria-label="Enter Flag" aria-describedby="basic-addon2">
+                                    <input id="question2" type="text" class="form-control" placeholder="Enter Flag" aria-label="Enter Flag" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <button id="submit_p2" class="btn btn-outline-secondary" type="button">Go!</button>
+                                        <button  onclick="submit_p(2)" id="submit_p2" class="btn btn-outline-secondary" type="button">Go!</button>
                                     </div>
                                 </div>
+                                
                             </blockquote>
                         </div>
                     </div>
@@ -194,6 +201,7 @@
                                         <button id="submit_p3" class="btn btn-outline-secondary" type="button">Go!</button>
                                     </div>
                                 </div>
+                               
                             </blockquote>
                         </div>
                     </div>
@@ -392,104 +400,9 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="hint" tabindex="-1" role="dialog" aria-labelledby="hint label" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        HINT GOES HERE
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-        <script>
-
-
-function showhint() {
-    alert("You can use the inspector.");
-}
-function getMD5(string) {
-            return CryptoJS.MD5(string).toString();
-        }
-
-        function submit_p1() {
-            const flag1 = document.getElementById("question1").value;
-            const md5p1 = getMD5(flag1);
-            
-            if (md5p1 === "e9fd537c96b4943307ffdc4c61a90f28") {
-        alert("hooyah");
-        console.log(md5p1);
-    } else {
-        alert("invalid flag!!!");
-    }
-
-        }
-    
-   
-
-
-
-            
-            var dataset = [
-                [41, 42, 43, 44, 45, 0], // keep the zero here
-                [10, 9, 8, 7, 6, 0],
-                [21, 16, 23, 1, 15, 0],
-                [71, 12, 13, 17, 25, 0],
-                [31, 5, 23, 24, 10, 0],
-                [11, 2, 13, 41, 15, 0],
-                [31, 5, 23, 24, 10, 0],
-                [11, 2, 13, 41, 15, 0],
-            ]
-
-            function getBarChartData(i) {
-                return barChartData = {
-                    labels: ['Easy1', 'Easy2', 'Medium3', 'Hard4', 'Hard5'],
-                    datasets: [{
-                        label: 'Dataset 1',
-                        backgroundColor: [
-                            '#17b06b', '#17b06b', '#ffce56', '#ef121b', '#ef121b'
-                        ],
-                        borderColor: [
-                            '#17b06b', '#17b06b', '#ffce56', '#ef121b', '#ef121b'
-                        ],
-                        borderWidth: 1,
-                        data: dataset[i - 1]
-                    }]
-
-                };
-            }
-
-            window.onload = function() {
-                var numcharts = 8;
-                for (let i = 1; i <= numcharts; i++) {
-                    var ctx = document.getElementById('problem_id_' + i + '_chart').getContext('2d');
-                    window.myBar = new Chart(ctx, {
-                        type: 'bar',
-                        data: getBarChartData(i),
-                        options: {
-                            tooltips: {
-                                enabled: false,
-                            },
-                            responsive: false,
-                            legend: {
-                                display: false,
-                            },
-                            scales: {
-                                yAxes: [{
-                                    display: false
-                                }],
-                                xAxes: [{
-                                    display: false
-                                }]
-                            }
-                        }
-                    });
-                    myBar.canvas.parentNode.style.width = '80px';
-                    myBar.canvas.parentNode.style.height = '20px';
-                }
-            };
-        </script>
+        <script src="js/script.js"></script>
 
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
